@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <title>Forum - This Is Forum Bitch</title>
     <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Forum - Responsive HTML5 Template">
+    <meta name="description" content="Forum bitch We Would like you to intrduce this forum">
     <meta name="author" content="Forum">
-    <link rel="shortcut icon" href="favicon/favicon.ico">
+    <link rel="shortcut icon" href="{{asset('frontend/assets/favicon/favicon.ico')}}">
     <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('frontend/assets/css/style.css')}}">
 </head>
 <body>
 <!-- tt-mobile menu -->
