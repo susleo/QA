@@ -12,14 +12,13 @@ class CreateDiscussionSeeder extends Seeder
     public function run()
     {
         //
+
         $user = \App\User::Create([
             'name'=>'Suraj',
             'username'=>'surajfromleo',
             'email'=>'surajfromleo@gmail.com',
-            'password'=>\Illuminate\Support\Facades\Hash::make('suraj88@'),
+            'password'=>\Illuminate\Support\Facades\Hash::make('suraj88@@'),
         ]);
-
-
         $title1 = 'Larvel Awesome';
         $cat2 = \App\Category::Create([
             'name'=>$title1,
@@ -47,7 +46,7 @@ class CreateDiscussionSeeder extends Seeder
         $dis1 = \App\Discussion::Create([
             'title'=>$distit1,
             'slug'=>\Illuminate\Support\Str::slug($distit1,'-'),
-            'content'=>'The standard Lorem Ipsum passage, used since the 1500s
+            'contents'=>'The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -63,10 +62,10 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 
         $distit2 = 'Node Js is a developing language we used for backend';
-        $dis1 = \App\Discussion::Create([
+        $dis2 = \App\Discussion::Create([
             'title'=>$distit2,
             'slug'=>\Illuminate\Support\Str::slug($distit2,'-'),
-            'content'=>'The standard Lorem Ipsum passage, used since the 1500s
+            'contents'=>'The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -82,10 +81,10 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 
         $distit3 = 'Vue js is a frontend dvelopment used with many backend programming';
-        $dis1 = \App\Discussion::Create([
+        $dis3 = \App\Discussion::Create([
             'title'=>$distit3,
             'slug'=>\Illuminate\Support\Str::slug($distit3,'-'),
-            'content'=>'The standard Lorem Ipsum passage, used since the 1500s
+            'contents'=>'The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -101,10 +100,10 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
 
 
         $distit4 = 'Its simple and it  has problem with frontend';
-        $dis1 = \App\Discussion::Create([
+        $dis4 = \App\Discussion::Create([
             'title'=>$distit4,
             'slug'=>\Illuminate\Support\Str::slug($distit4,'-'),
-            'content'=>'The standard Lorem Ipsum passage, used since the 1500s
+            'contents'=>'The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -123,7 +122,7 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
         $dis5 = \App\Discussion::Create([
             'title'=>$distit1,
             'slug'=>\Illuminate\Support\Str::slug($distit5,'-'),
-            'content'=>'The standard Lorem Ipsum passage, used since the 1500s
+            'contents'=>'The standard Lorem Ipsum passage, used since the 1500s
 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
@@ -135,6 +134,18 @@ Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC
             'category_id'=>$cat1->id,
             'user_id'=>  $user->id,
 
+
         ]);
+
+        $tag1=\App\Tag::Create(['name'=>'hello']);
+        $tag2=\App\Tag::Create(['name'=>'badmintion']);
+        $tag3=\App\Tag::Create(['name'=>'coronaVirus']);
+        $tag4=\App\Tag::Create(['name'=>'tesla']);
+
+        $dis5->tags()->attach([$tag1->id,$tag2->id]);
+        $dis4->tags()->attach([$tag4->id,$tag3->id]);
+        $dis3->tags()->attach([$tag1->id,$tag4->id]);
+        $dis2->tags()->attach([$tag1->id,$tag2->id]);
+        $dis1->tags()->attach([$tag4->id,$tag3->id]);
     }
 }

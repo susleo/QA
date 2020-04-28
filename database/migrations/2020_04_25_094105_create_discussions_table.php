@@ -17,7 +17,7 @@ class CreateDiscussionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->text('content');
+            $table->text('contents');
             $table->integer('pageview')->default(0);
             $table->integer('user_id');
             $table->integer('category_id');

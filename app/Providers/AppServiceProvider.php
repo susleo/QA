@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Discussion;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        View::share('discussions',Discussion::latest()->simplePaginate(12));
+//        View::composer(
+//            'discussions', Discussion::latest()->paginate(12)
+//        );
     }
 }
