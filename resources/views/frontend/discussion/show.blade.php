@@ -14,7 +14,7 @@
                         <div class="tt-item-header">
                             <div class="tt-item-info info-top">
                                 <div class="tt-avatar-icon">
-                                  {{$discussion->user->image ?? Gravatar::src('surajfromleo@gmail.com')}}
+                                    <img src="{{$discussion->user->image ?? Gravatar::src($discussion->user->email)}}" alt="">
                                 </div>
                                 <div class="tt-avatar-title">
                                     <a href="">{{$discussion->user->name}}</a>
@@ -62,60 +62,125 @@
                     </h2>
                 </div>
 
-                <div class="tt-item">
+
+                @if($discussion->bestReply)
+               <div class="alert alert-success" role="alert">
                     <div class="tt-single-topic">
                         <div class="tt-item-header pt-noborder">
                             <div class="tt-item-info info-top">
+                                <span class="alert alert-primary">
+                                    Best Reply
+                                </span>
                                 <div class="tt-avatar-icon">
-
                                 </div>
                                 <div class="tt-avatar-title">
-                                    <a href="#">tesla02</a>
+                                    <a href="#">{{$discussion->bestReply->user->name}}</a>
                                 </div>
-                                <a href="#" class="tt-info-time">
-                                    <i class="tt-icon"><svg><use xlink:href="#icon-time"></use></svg></i>6 Jan,2019
-                                </a>
+                                <span class="tt-info-time">
+                                    {{\Carbon\Carbon::parse($discussion->bestReply->created_at)->format('d/m/Y')}}
+                                </span>
                             </div>
                         </div>
                         <div class="tt-item-description">
-                            Finally!<br>
-                            Are there any special recommendations for design or an updated guide that includes new preview sizes, including retina displays?
+                            {!! \Illuminate\Support\Str::ucfirst($discussion->bestReply->contents)!!}
                         </div>
                         <div class="tt-item-info info-bottom">
                             <a href="#" class="tt-icon-btn">
-
                                 <span class="tt-text">671</span>
                             </a>
                             <a href="#" class="tt-icon-btn">
-
                                 <span class="tt-text">39</span>
                             </a>
                             <a href="#" class="tt-icon-btn">
-
                                 <span class="tt-text">12</span>
                             </a>
                         </div>
                     </div>
                 </div>
+            @endif
 
-            </div>
-
-
-            <div class="tt-wrapper-inner">
-                <div class="pt-editor form-default">
-                    <h6 class="pt-title">Post Your Reply</h6>
-                    <div class="form-group">
-                        <input id="reply" type="hidden" name="reply" value="">
-                        <trix-editor input="reply" placeholder="Lets get started">
-                        </trix-editor>
-                    </div>
-                    <div class="pt-row">
-                        <div class="col-auto">
-                            <a href="#" class="btn btn-secondary btn-width-lg">Reply</a>
+                @foreach($discussion->replies()->latest()->paginate(5) as $reply)
+                <div class="tt-item">
+                    <div class="tt-single-topic">
+                        <div class="tt-item-header pt-noborder">
+                            <div class="tt-item-info info-top">
+                                <div class="tt-avatar-icon">
+                                </div>
+                                <div class="tt-avatar-title">
+                                    <a href="#">{{$reply->user->name}}</a>
+                                </div>
+                                <span class="tt-info-time">
+                                    {{\Carbon\Carbon::parse($reply->created_at)->format('d/m/Y')}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="tt-item-description">
+                            @if (Auth::check())
+                            @if(auth()->user()->id == $discussion->user_id)
+                                <div class="float-right">
+                                    <form action="{{ route('best.reply',['discussion'=>$discussion->slug,'reply'=>$reply->id])}}" method="post">
+                                      @csrf
+                                        <div class="pt-row">
+                                            <div class="col-auto">
+                                                <button type="submit" class="btn btn-info">
+                                                    {{($discussion->reply_id == $reply->id ) ?'Best Repliy':'Marked As Best' }}</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                @endif
+                            @endif
+                           {!! \Illuminate\Support\Str::ucfirst($reply->contents) !!}
+                        </div>
+                        <div class="tt-item-info info-bottom">
+                            <a href="#" class="tt-icon-btn">
+                                <span class="tt-text">671</span>
+                            </a>
+                            <a href="#" class="tt-icon-btn">
+                                <span class="tt-text">39</span>
+                            </a>
+                            <a href="#" class="tt-icon-btn">
+                                <span class="tt-text">12</span>
+                            </a>
                         </div>
                     </div>
                 </div>
+            @endforeach
+                <div class="pagination">
+                   {{$discussion->replies()->paginate(5)->links()}}
+                </div>
             </div>
+            @guest
+                    <form action="{{route('login')}}" method="get">
+                        <div class="pt-row">
+                            <div class="col-auto">
+                                <button type="submit" class="btn btn-secondary btn-width-lg">Login To Reply To This Discussion </button>
+                            </div>
+                        </div>
+
+                    </form>
+                @else
+                    <div class="tt-wrapper-inner">
+                        <div class="pt-editor form-default">
+                            <h6 class="pt-title">Post Your Reply</h6>
+                            <form action="{{route('replies.store',$discussion->slug)}}" method="post">
+                                @csrf
+                                <div class="form-group">
+                                    <input id="contents" type="hidden" name="contents" value="">
+                                    <trix-editor input="contents" placeholder="Lets get started">
+                                    </trix-editor>
+                                </div>
+                                <div class="pt-row">
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-secondary btn-width-lg">Reply</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                @endguest
+
 
 
     @endsection

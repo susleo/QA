@@ -21,6 +21,7 @@ class CreateDiscussionsTable extends Migration
             $table->integer('pageview')->default(0);
             $table->integer('user_id');
             $table->integer('category_id');
+            $table->integer('reply_id')->nullable();
             $table->integer('like')->default(0);
             $table->integer('dislike')->default(0);
             $table->integer('love')->default(0);

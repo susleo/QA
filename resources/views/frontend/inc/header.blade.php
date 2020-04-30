@@ -116,7 +116,6 @@
                     </div>
                 </div>
             @else
-
                 <div class="col-auto ml-auto">
                     <div class="tt-user-info d-flex justify-content-center">
                         <div class="tt-avatar-icon tt-size-md">

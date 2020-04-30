@@ -2,7 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Discussion;
+use App\User;
+use App\Http\Requests\Reply\CreateReplyRequest;
+use App\Notifications\Hello;
+use App\Notifications\NewReplyAdded;
+use App\Reply;
 use Illuminate\Http\Request;
+
 
 class RepliesController extends Controller
 {
@@ -32,9 +39,21 @@ class RepliesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateReplyRequest $request,Discussion $discussion)
     {
         //
+//        dd( $discussion->user);
+        auth()->user()->replies()->create([
+            'discussion_id'=>$discussion->id,
+            'contents'=>$request->contents,
+        ]);
+
+
+        ($discussion->user->notify(new NewReplyAdded($discussion)));
+
+        session()->flash('success','Reply Added');
+        return redirect()->back();
+
     }
 
     /**
@@ -81,4 +100,13 @@ class RepliesController extends Controller
     {
         //
     }
+
+    public function reply(Discussion $discussion , Reply $reply){
+
+        $discussion->markedAsBest($reply);
+
+        session()->flash('success','Reply Marked As best');
+        return redirect()->back();
+    }
+
 }
