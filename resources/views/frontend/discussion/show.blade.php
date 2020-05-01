@@ -65,13 +65,14 @@
 
                 @if($discussion->bestReply)
                <div class="alert alert-success" role="alert">
+                    <span class="badge badge-danger">
+                                    Best Reply
+                        </span>
                     <div class="tt-single-topic">
                         <div class="tt-item-header pt-noborder">
                             <div class="tt-item-info info-top">
-                                <span class="alert alert-primary">
-                                    Best Reply
-                                </span>
                                 <div class="tt-avatar-icon">
+                                    <img src="{{$dicussion->user->image ?? Gravatar::src($discussion->user->email)}}" alt="">
                                 </div>
                                 <div class="tt-avatar-title">
                                     <a href="#">{{$discussion->bestReply->user->name}}</a>

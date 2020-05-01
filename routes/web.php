@@ -25,3 +25,4 @@ Route::resource('discussion','DiscussionController');
 Route::resource('discussion/{discussion}/replies','RepliesController');
 
 Route::post('discussion/{discussion}/reply/{reply}','RepliesController@reply')->name('best.reply');
+Route::get('users/notifications/',[\App\Http\Controllers\UserController::class,'notifications'])->name('notifcations');

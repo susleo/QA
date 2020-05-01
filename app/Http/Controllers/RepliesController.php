@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Discussion;
+use App\Notifications\markAsBestReply;
 use App\User;
 use App\Http\Requests\Reply\CreateReplyRequest;
 use App\Notifications\Hello;
@@ -103,7 +104,11 @@ class RepliesController extends Controller
 
     public function reply(Discussion $discussion , Reply $reply){
 
-        $discussion->markedAsBest($reply);
+        $discussion->reply_id = $reply->id ;
+        $discussion->update();
+
+        $reply->user->notify(new markAsBestReply($discussion));
+       // $discussion->markedAsBest($reply);
 
         session()->flash('success','Reply Marked As best');
         return redirect()->back();

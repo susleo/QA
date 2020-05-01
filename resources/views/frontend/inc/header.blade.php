@@ -11,7 +11,7 @@
                 <!-- /toggle mobile menu -->
                 <!-- logo -->
                 <div class="tt-logo">
-                    <a href="index.html"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a>
+                    <a href="{{route('home')}}"><img src="{{asset('frontend/assets/images/logo.png')}}" alt=""></a>
                 </div>
                 <!-- /logo -->
                 <!-- desctop menu -->
@@ -119,6 +119,11 @@
                 <div class="col-auto ml-auto">
                     <div class="tt-user-info d-flex justify-content-center">
                         <div class="tt-avatar-icon tt-size-md">
+                            <a href="{{route('notifcations')}}">
+                            <span class="badge badge-danger" >
+                            {{auth()->user()->unreadNotifications->count()}} unread notifcations
+                                </span>
+                            </a>
                             <img src="{{$user->image ?? 'https://cdn.icon-icons.com/icons2/1999/PNG/512/avatar_dentist_people_person_profile_user_icon_123387.png'}}"
                                  alt=""height="50px" width="60px" style="border-radius: 50%">
                             <span class="tt-color01 tt-badge" >
