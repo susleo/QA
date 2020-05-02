@@ -18,7 +18,7 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
-                            <li><a href="page-categories.html"><span>Categories</span></a></li>
+                            <li><a href="{{route('category')}}"><span>Categories</span></a></li>
                             <li><a href="page-tabs.html"><span>Trending</span></a></li>
                             <li><a href="{{route('discussion.create')}}"><span>New</span></a></li>
                         </ul>
@@ -124,7 +124,7 @@
                             {{auth()->user()->unreadNotifications->count()}} unread notifcations
                                 </span>
                             </a>
-                            <img src="{{$user->image ?? 'https://cdn.icon-icons.com/icons2/1999/PNG/512/avatar_dentist_people_person_profile_user_icon_123387.png'}}"
+                            <img src="{{auth()->user()->image ?? Gravatar::src(auth()->user()->email)}}"
                                  alt=""height="50px" width="60px" style="border-radius: 50%">
                             <span class="tt-color01 tt-badge" >
                                    {{auth()->user()->name}}

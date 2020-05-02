@@ -20,6 +20,7 @@ Route::get('/', function () {
 Auth::routes([]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/categories', 'FrontendController@category')->name('category');
 
 Route::resource('discussion','DiscussionController');
 Route::resource('discussion/{discussion}/replies','RepliesController');

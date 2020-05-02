@@ -25,7 +25,10 @@ class DiscussionController extends Controller
     public function index()
     {
         //
-        $discussions = Discussion::latest()->paginate(10);
+
+                $discussions = Discussion::latest()->FilterByCategory()->paginate(10);
+
+
         return view('frontend.index',compact('discussions'));
 
     }

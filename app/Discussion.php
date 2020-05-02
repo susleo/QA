@@ -39,4 +39,19 @@ class Discussion extends Model
         ]);
     }
 
-   }
+    public function scopeFilterByCategory($builder){
+
+        if (request()->query('category')){
+            $category = Category::where('slug',request()->query('category'))->first();
+
+        if($category){
+            return $builder->where('category_id',$category->id);
+        }
+        return $builder;
+      }
+        return $builder;
+    }
+
+
+
+}

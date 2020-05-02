@@ -47,6 +47,6 @@
 
         </div>
 
-        {{$discussions->links()}}
+        {{$discussions->appends(['category'=>request()->query('category')])->links()}}
 </body>
     @endsection
